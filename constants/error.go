@@ -17,3 +17,7 @@ var ErrEmptyFieldLogin error = errors.New("email and password cannot be empty")
 var ErrUserNotFound error = errors.New("email or password is incorrect")
 
 var ErrInvalidToken error = errors.New("invalid token")
+
+var ErrInternalServer error = errors.New("internal server error")
+
+var ErrMusicNotFound error = errors.New("music not found")

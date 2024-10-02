@@ -31,6 +31,12 @@ func ConvertResponseCode(err error) int {
 		case constants.ErrInvalidToken:
 			return http.StatusUnauthorized
 
+		case constants.ErrInternalServer:
+			return http.StatusInternalServerError
+
+		case constants.ErrMusicNotFound:
+			return http.StatusNotFound
+
 		default:
 			return http.StatusInternalServerError
 	}

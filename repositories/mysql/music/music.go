@@ -1,6 +1,7 @@
 package music
 
 import (
+	"backend-mental-guardians/constants"
 	"backend-mental-guardians/entities"
 	musicEntities "backend-mental-guardians/entities/music"
 
@@ -22,7 +23,7 @@ func (m *MusicRepo) GetAll(metadata entities.Metadata) ([]musicEntities.Music, e
 	err := m.DB.Offset((metadata.Page-1)*metadata.Limit).Limit(metadata.Limit).Find(&musicDB).Error
 
 	if err != nil {
-		return []musicEntities.Music{}, err
+		return []musicEntities.Music{}, constants.ErrMusicNotFound
 	}
 
 	musicEnts := make([]musicEntities.Music, len(musicDB))
@@ -37,4 +38,20 @@ func (m *MusicRepo) GetAll(metadata entities.Metadata) ([]musicEntities.Music, e
 	}
 
 	return musicEnts, nil
+}
+
+func (m *MusicRepo) GetByID(id uint) (musicEntities.Music, error) {
+	musicDB := Music{}
+	err := m.DB.Where("id = ?", id).First(&musicDB).Error
+	if err != nil {
+		return musicEntities.Music{}, constants.ErrMusicNotFound
+	}
+	music := musicEntities.Music{
+		ID:           musicDB.ID,
+		Title:        musicDB.Title,
+		Singer:       musicDB.Singer,
+		MusicURL:     musicDB.MusicURL,
+		ThumbnailURL: musicDB.ThumbnailURL,
+	}
+	return music, nil
 }

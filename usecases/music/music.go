@@ -22,3 +22,11 @@ func (musicUseCase *MusicUseCase) GetAll(metadata entities.Metadata) ([]musicEnt
 	}
 	return musics, nil
 }
+
+func (musicUseCase *MusicUseCase) GetByID(id uint) (musicEntities.Music, error) {
+	music, err := musicUseCase.musicRepo.GetByID(id)
+	if err != nil {
+		return musicEntities.Music{}, err
+	}
+	return music, nil
+}

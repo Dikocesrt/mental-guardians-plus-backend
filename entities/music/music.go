@@ -12,8 +12,10 @@ type Music struct {
 
 type RepositoryInterface interface {
 	GetAll(metadata entities.Metadata) ([]Music, error)
+	GetByID(id uint) (Music, error)
 }
 
 type UseCaseInterface interface {
 	GetAll(metadata entities.Metadata) ([]Music, error)
+	GetByID(id uint) (Music, error)
 }

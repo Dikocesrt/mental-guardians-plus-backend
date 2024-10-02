@@ -29,4 +29,5 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 
 	userRoute := userAuth.Group("/")
 	userRoute.GET("musics", routeController.musicController.GetAll)
+	userRoute.GET("musics/:id", routeController.musicController.GetByID)
 }
