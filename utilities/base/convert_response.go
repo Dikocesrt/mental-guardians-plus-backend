@@ -28,6 +28,9 @@ func ConvertResponseCode(err error) int {
 		case constants.ErrUserNotFound:
 			return http.StatusNotFound
 
+		case constants.ErrInvalidToken:
+			return http.StatusUnauthorized
+
 		default:
 			return http.StatusInternalServerError
 	}

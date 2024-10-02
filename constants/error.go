@@ -15,3 +15,5 @@ var ErrCreateToken error = errors.New("failed to create token")
 var ErrEmptyFieldLogin error = errors.New("email and password cannot be empty")
 
 var ErrUserNotFound error = errors.New("email or password is incorrect")
+
+var ErrInvalidToken error = errors.New("invalid token")
