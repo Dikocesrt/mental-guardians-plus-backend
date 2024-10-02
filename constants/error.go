@@ -21,3 +21,5 @@ var ErrInvalidToken error = errors.New("invalid token")
 var ErrInternalServer error = errors.New("internal server error")
 
 var ErrMusicNotFound error = errors.New("music not found")
+
+var ErrStoryNotFound error = errors.New("story not found")
