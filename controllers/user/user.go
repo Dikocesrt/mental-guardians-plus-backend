@@ -38,8 +38,30 @@ func (userController *UserController) Register(c echo.Context) error {
 		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
 	}
 
-	userResponse := response.UserRegister{
+	userResponse := response.UserToken{
 		Token: newUser.Token,
 	}
 	return c.JSON(http.StatusCreated, base.NewSuccessResponse("Success Register", userResponse))
+}
+
+func (userController *UserController) Login(c echo.Context) error {
+	var userFromRequest request.UserLogin
+
+	c.Bind(&userFromRequest)
+
+	userEntities := userEntities.User{
+		Email:    userFromRequest.Email,
+		Password: userFromRequest.Password,
+	}
+
+	userResponse, err := userController.userUseCase.Login(userEntities)
+
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	response := response.UserToken{
+		Token: userResponse.Token,
+	}
+	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Login", response))
 }

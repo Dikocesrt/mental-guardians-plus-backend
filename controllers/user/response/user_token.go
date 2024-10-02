@@ -1,5 +1,5 @@
 package response
 
-type UserRegister struct {
+type UserToken struct {
 	Token string `json:"token"`
 }

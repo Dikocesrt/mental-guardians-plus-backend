@@ -22,4 +22,5 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 
 	userAuth := e.Group("/v1")
 	userAuth.POST("/register", routeController.userController.Register)
+	userAuth.POST("/login", routeController.userController.Login)
 }

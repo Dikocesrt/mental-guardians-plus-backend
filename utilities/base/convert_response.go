@@ -22,6 +22,12 @@ func ConvertResponseCode(err error) int {
 		case constants.ErrCreateToken:
 			return http.StatusInternalServerError
 
+		case constants.ErrEmptyFieldLogin:
+			return http.StatusBadRequest
+
+		case constants.ErrUserNotFound:
+			return http.StatusNotFound
+
 		default:
 			return http.StatusInternalServerError
 	}

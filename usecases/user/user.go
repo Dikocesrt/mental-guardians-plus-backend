@@ -30,7 +30,7 @@ func (userUseCase *UserUseCase) Register(user userEntities.User) (userEntities.U
 
 	user.Password = string(hashedPassword)
 
-	err = userUseCase.userRepo.FindByEmail(user.Email)
+	_, err = userUseCase.userRepo.FindByEmail(user.Email)
 	if err == nil {
 		return userEntities.User{}, constants.ErrEmailAlreadyRegistered
 	}
@@ -47,4 +47,28 @@ func (userUseCase *UserUseCase) Register(user userEntities.User) (userEntities.U
 
 	newUser.Token = token
 	return newUser, nil
+}
+
+func (userUseCase *UserUseCase) Login(user userEntities.User) (userEntities.User, error) {
+	if user.Email == "" || user.Password == "" {
+		return userEntities.User{}, constants.ErrEmptyFieldLogin
+	}
+
+	userExist, err := userUseCase.userRepo.FindByEmail(user.Email)
+	if err != nil {
+		return userEntities.User{}, constants.ErrUserNotFound
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(userExist.Password), []byte(user.Password))
+	if err != nil {
+		return userEntities.User{}, constants.ErrUserNotFound
+	}
+
+	token, err := middlewares.CreateToken(userExist.ID)
+	if err != nil {
+		return userEntities.User{}, constants.ErrCreateToken
+	}
+
+	userExist.Token = token
+	return userExist, nil
 }
