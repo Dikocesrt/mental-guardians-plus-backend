@@ -36,4 +36,6 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 
 	userRoute.GET("stories", routeController.storyController.GetAll)
 	userRoute.GET("stories/:id", routeController.storyController.GetByID)
+
+	userRoute.GET("profile", routeController.userController.GetProfileByID)
 }

@@ -72,3 +72,11 @@ func (userUseCase *UserUseCase) Login(user userEntities.User) (userEntities.User
 	userExist.Token = token
 	return userExist, nil
 }
+
+func (userUseCase *UserUseCase) GetProfileByID(id uint) (userEntities.User, error) {
+	user, err := userUseCase.userRepo.FindByID(id)
+	if err != nil {
+		return userEntities.User{}, constants.ErrUserNotFound
+	}
+	return user, nil
+}

@@ -4,6 +4,7 @@ import (
 	"backend-mental-guardians/controllers/user/request"
 	"backend-mental-guardians/controllers/user/response"
 	userEntities "backend-mental-guardians/entities/user"
+	"backend-mental-guardians/utilities"
 	"backend-mental-guardians/utilities/base"
 	"net/http"
 
@@ -64,4 +65,26 @@ func (userController *UserController) Login(c echo.Context) error {
 		Token: userResponse.Token,
 	}
 	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Login", response))
+}
+
+func (userController *UserController) GetProfileByID(c echo.Context) error {
+	token := c.Request().Header.Get("Authorization")
+	userId, err := utilities.GetUserIdFromToken(token)
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	userResponse, err := userController.userUseCase.GetProfileByID(uint(userId))
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	res := response.UserResponse{
+		ID:        userResponse.ID,
+		Email:     userResponse.Email,
+		FirstName: userResponse.FirstName,
+		LastName:  userResponse.LastName,
+	}
+
+	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Get User By ID", res))
 }
