@@ -6,6 +6,7 @@ import (
 	"backend-mental-guardians/utilities"
 	"backend-mental-guardians/utilities/base"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -52,4 +53,31 @@ func (s *StoryController) GetAll(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, base.NewMetadataSuccessResponse("Success Get All Story", metadata, storyResps))
+}
+
+func (s *StoryController) GetByID(c echo.Context) error {
+	strID := c.Param("id")
+	id, _ := strconv.Atoi(strID)
+
+	token := c.Request().Header.Get("Authorization")
+	_, err := utilities.GetUserIdFromToken(token)
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	story, err := s.storyUseCase.GetByID(uint(id))
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	storyResp := response.StoryResponse{
+		ID:        story.ID,
+		Title:     story.Title,
+		Author:    story.Author,
+		Content:   story.Content,
+		ThumbnailURL: story.ThumbnailURL,
+		Category:  story.Category,
+	}
+
+	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Get Story", storyResp))
 }

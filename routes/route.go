@@ -35,4 +35,5 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 	userRoute.GET("musics/:id", routeController.musicController.GetByID)
 
 	userRoute.GET("stories", routeController.storyController.GetAll)
+	userRoute.GET("stories/:id", routeController.storyController.GetByID)
 }

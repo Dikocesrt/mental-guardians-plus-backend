@@ -44,3 +44,21 @@ func (s *StoryRepo) GetAll(metadata entities.Metadata, category string) ([]story
 	}
 	return storyEnts, nil
 }
+
+func (s *StoryRepo) GetByID(id uint) (storyEntities.Story, error) {
+	storyDB := Story{}
+
+	err := s.DB.Where("id = ?", id).First(&storyDB).Error
+	if err != nil {
+		return storyEntities.Story{}, constants.ErrStoryNotFound
+	}
+
+	return storyEntities.Story{
+		ID:           storyDB.ID,
+		Title:        storyDB.Title,
+		Author:       storyDB.Author,
+		Content:      storyDB.Content,
+		Category:     storyDB.Category,
+		ThumbnailURL: storyDB.ThumbnailURL,
+	}, nil
+}

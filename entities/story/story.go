@@ -13,8 +13,10 @@ type Story struct {
 
 type RepositoryInterface interface {
 	GetAll(metadata entities.Metadata, category string) ([]Story, error)
+	GetByID(id uint) (Story, error)
 }
 
 type UseCaseInterface interface {
 	GetAll(metadata entities.Metadata, category string) ([]Story, error)
+	GetByID(id uint) (Story, error)
 }

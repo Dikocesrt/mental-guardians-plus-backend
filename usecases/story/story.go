@@ -22,3 +22,11 @@ func (s *StoryUseCase) GetAll(metadata entities.Metadata, category string) ([]st
 	}
 	return stories, nil
 }
+
+func (s *StoryUseCase) GetByID(id uint) (storyEntities.Story, error) {
+	story, err := s.storyRepo.GetByID(id)
+	if err != nil {
+		return storyEntities.Story{}, err
+	}
+	return story, nil
+}
