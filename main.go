@@ -2,16 +2,16 @@ package main
 
 import (
 	"backend-mental-guardians/configs"
+	contentControllers "backend-mental-guardians/controllers/content"
 	musicControllers "backend-mental-guardians/controllers/music"
-	storyControllers "backend-mental-guardians/controllers/story"
 	userControllers "backend-mental-guardians/controllers/user"
 	"backend-mental-guardians/repositories/mysql"
+	contentRepositories "backend-mental-guardians/repositories/mysql/content"
 	musicRepositories "backend-mental-guardians/repositories/mysql/music"
-	storyRepositories "backend-mental-guardians/repositories/mysql/story"
 	userRepositories "backend-mental-guardians/repositories/mysql/user"
 	"backend-mental-guardians/routes"
+	contentUseCases "backend-mental-guardians/usecases/content"
 	musicUseCases "backend-mental-guardians/usecases/music"
-	storyUseCases "backend-mental-guardians/usecases/story"
 	userUseCases "backend-mental-guardians/usecases/user"
 
 	"github.com/labstack/echo/v4"
@@ -29,11 +29,11 @@ func main() {
 	musicUC := musicUseCases.NewMusicUseCase(musicRepo)
 	musicCont := musicControllers.NewMusicController(musicUC)
 
-	storyRepo := storyRepositories.NewStoryRepo(db)
-	storyUC := storyUseCases.NewStoryUseCase(storyRepo)
-	storyCont := storyControllers.NewStoryController(storyUC)
+	contentRepo := contentRepositories.NewContentRepo(db)
+	contentUC := contentUseCases.NewContentUseCase(contentRepo)
+	contentCont := contentControllers.NewContentController(contentUC)
 
-	route := routes.NewRouteController(userCont, musicCont, storyCont)
+	route := routes.NewRouteController(userCont, musicCont, contentCont)
 	e := echo.New()
 	route.Route(e)
 	e.Logger.Fatal(e.Start(":8080"))

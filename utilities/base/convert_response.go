@@ -37,7 +37,7 @@ func ConvertResponseCode(err error) int {
 		case constants.ErrMusicNotFound:
 			return http.StatusNotFound
 
-		case constants.ErrStoryNotFound:
+		case constants.ErrContentNotFound:
 			return http.StatusNotFound
 
 		default:

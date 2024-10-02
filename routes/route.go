@@ -1,8 +1,8 @@
 package routes
 
 import (
+	content "backend-mental-guardians/controllers/content"
 	"backend-mental-guardians/controllers/music"
-	"backend-mental-guardians/controllers/story"
 	"backend-mental-guardians/controllers/user"
 	myMiddlewares "backend-mental-guardians/middlewares"
 
@@ -12,14 +12,14 @@ import (
 type RouteController struct {
 	userController *user.UserController
 	musicController *music.MusicController
-	storyController *story.StoryController
+	contentController *content.ContentController
 }
 
-func NewRouteController(userController *user.UserController, musicController *music.MusicController, storyController *story.StoryController) *RouteController {
+func NewRouteController(userController *user.UserController, musicController *music.MusicController, contentController *content.ContentController) *RouteController {
 	return &RouteController{
 		userController: userController,
 		musicController: musicController,
-		storyController: storyController,
+		contentController: contentController,
 	}
 }
 
@@ -34,8 +34,11 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 	userRoute.GET("musics", routeController.musicController.GetAll)
 	userRoute.GET("musics/:id", routeController.musicController.GetByID)
 
-	userRoute.GET("stories", routeController.storyController.GetAll)
-	userRoute.GET("stories/:id", routeController.storyController.GetByID)
+	userRoute.GET("stories", routeController.contentController.GetAllStories)
+	userRoute.GET("stories/:id", routeController.contentController.GetByID)
+
+	userRoute.GET("articles", routeController.contentController.GetAllArticles)
+	userRoute.GET("articles/:id", routeController.contentController.GetByID)
 
 	userRoute.GET("profile", routeController.userController.GetProfileByID)
 }
