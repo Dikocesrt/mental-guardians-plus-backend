@@ -11,10 +11,10 @@ type Mood struct {
 
 type RepositoryInterface interface {
 	Create(mood Mood) (Mood, error)
-	// GetAllByUserId(id uint) ([]Mood, error)
+	GetAllByUserID(id uint) ([]Mood, error)
 }
 
 type UseCaseInterface interface {
 	Create(mood Mood) (Mood, error)
-	// GetAllByUserId(id uint) ([]Mood, error)
+	GetAllByUserID(id uint) ([]Mood, error)
 }

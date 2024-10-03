@@ -19,3 +19,11 @@ func (mu *MoodUseCase) Create(mood moodEntities.Mood) (moodEntities.Mood, error)
 	}
 	return newMood, nil
 }
+
+func (mu *MoodUseCase) GetAllByUserID(id uint) ([]moodEntities.Mood, error) {
+	moods, err := mu.moodRepository.GetAllByUserID(id)
+	if err != nil {
+		return []moodEntities.Mood{}, err
+	}
+	return moods, nil
+}
