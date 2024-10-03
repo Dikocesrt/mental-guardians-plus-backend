@@ -6,6 +6,7 @@ import (
 	"backend-mental-guardians/repositories/mysql/music"
 	"backend-mental-guardians/repositories/mysql/therapist"
 	"backend-mental-guardians/repositories/mysql/user"
+	"backend-mental-guardians/repositories/mysql/video"
 	"fmt"
 	"log"
 	"strconv"
@@ -43,7 +44,7 @@ func ConnectDB(config Config) *gorm.DB {
 }
 
 func InitMigrate(db *gorm.DB) {
-	if err := db.AutoMigrate(user.User{}, music.Music{}, content.Content{}, therapist.Therapist{}, mood.Mood{}); err != nil {
+	if err := db.AutoMigrate(user.User{}, music.Music{}, content.Content{}, therapist.Therapist{}, mood.Mood{}, video.Video{}); err != nil {
 		log.Println("Error migrating user table")
 	}
 }

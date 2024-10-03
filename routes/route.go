@@ -6,6 +6,7 @@ import (
 	"backend-mental-guardians/controllers/music"
 	"backend-mental-guardians/controllers/therapist"
 	"backend-mental-guardians/controllers/user"
+	"backend-mental-guardians/controllers/video"
 	myMiddlewares "backend-mental-guardians/middlewares"
 
 	"github.com/labstack/echo/v4"
@@ -17,15 +18,17 @@ type RouteController struct {
 	contentController *content.ContentController
 	therapistController *therapist.TherapistController
 	moodController *mood.MoodController
+	videoController *video.VideoController
 }
 
-func NewRouteController(userController *user.UserController, musicController *music.MusicController, contentController *content.ContentController, therapistController *therapist.TherapistController, moodController *mood.MoodController) *RouteController {
+func NewRouteController(userController *user.UserController, musicController *music.MusicController, contentController *content.ContentController, therapistController *therapist.TherapistController, moodController *mood.MoodController, videoController *video.VideoController) *RouteController {
 	return &RouteController{
 		userController: userController,
 		musicController: musicController,
 		contentController: contentController,
 		therapistController: therapistController,
 		moodController: moodController,
+		videoController: videoController,
 	}
 }
 
@@ -54,4 +57,6 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 	userRoute.POST("moods", routeController.moodController.Create)
 	userRoute.GET("moods", routeController.moodController.GetAllByUserID)
 	userRoute.GET("moods/:id", routeController.moodController.GetByID)
+
+	userRoute.GET("videos", routeController.videoController.GetAll)
 }

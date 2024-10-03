@@ -6,7 +6,7 @@ type Therapist struct {
 	gorm.Model
 	Name string `gorm:"not null;type:varchar(255)"`
 	Age int `gorm:"not null;type:int"`
-	Specialist string `gorm:"not null;type:enum('bullying', 'work', 'family', 'school', 'love', 'finance')"`
+	Specialist string `gorm:"not null;type:enum('bullying', 'trauma', 'family', 'school', 'love', 'finance')"`
 	PhotoURL string `gorm:"not null;type:varchar(255);name:photo_url"`
 	PhoneNumber string `gorm:"not null;type:varchar(255);name:phone_number"`
 	Gender string `gorm:"not null;type:enum('male', 'female')"`
