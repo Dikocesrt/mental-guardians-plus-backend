@@ -53,4 +53,5 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 
 	userRoute.POST("moods", routeController.moodController.Create)
 	userRoute.GET("moods", routeController.moodController.GetAllByUserID)
+	userRoute.GET("moods/:id", routeController.moodController.GetByID)
 }

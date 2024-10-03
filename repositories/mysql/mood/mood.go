@@ -52,7 +52,24 @@ func (m *MoodRepo) GetAllByUserID(userID uint, metadata entities.Metadata) ([]mo
 			User:    user.User{
 				ID: userID,
 			},
+			CreatedAt: moodEnt.CreatedAt.String(),
 		}
 	}
 	return moodEnts, nil
+}
+
+func (m *MoodRepo) GetByID(id uint) (moodEntities.Mood, error) {
+	var mood Mood
+	if err := m.DB.Where("id = ?", id).First(&mood).Error; err != nil {
+		return moodEntities.Mood{}, err
+	}
+	return moodEntities.Mood{
+		ID:      mood.ID,
+		Content: mood.Content,
+		IsGood:  mood.IsGood,
+		User:    user.User{
+			ID: mood.UserID,
+		},
+		CreatedAt: mood.CreatedAt.String(),
+	}, nil
 }

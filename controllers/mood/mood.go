@@ -9,6 +9,7 @@ import (
 	"backend-mental-guardians/utilities"
 	"backend-mental-guardians/utilities/base"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -88,8 +89,34 @@ func (mc *MoodController) GetAllByUserID(c echo.Context) error {
 			ID:      mood.ID,
 			Content: mood.Content,
 			IsGood:  mood.IsGood,
+			CreatedAt: mood.CreatedAt,
 		}
 	}
 
 	return c.JSON(http.StatusOK, base.NewMetadataSuccessResponse("Success Get All Mood", metadata, moodResponses))
+}
+
+func (mc *MoodController) GetByID(c echo.Context) error {
+	strID := c.Param("id")
+	id, _ := strconv.Atoi(strID)
+
+	token := c.Request().Header.Get("Authorization")
+	_, err := utilities.GetUserIdFromToken(token)
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	mood, err := mc.moodUseCase.GetByID(uint(id))
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+
+	moodResponse := response.MoodResponse{
+		ID:      mood.ID,
+		Content: mood.Content,
+		IsGood:  mood.IsGood,
+		CreatedAt: mood.CreatedAt,
+	}
+
+	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Get Mood", moodResponse))
 }

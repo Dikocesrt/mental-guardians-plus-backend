@@ -30,3 +30,11 @@ func (mu *MoodUseCase) GetAllByUserID(id uint, metadata entities.Metadata) ([]mo
 	}
 	return moods, nil
 }
+
+func (mu *MoodUseCase) GetByID(id uint) (moodEntities.Mood, error) {
+	mood, err := mu.moodRepository.GetByID(id)
+	if err != nil {
+		return moodEntities.Mood{}, err
+	}
+	return mood, nil
+}
