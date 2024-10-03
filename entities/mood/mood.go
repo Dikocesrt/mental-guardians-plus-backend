@@ -1,6 +1,9 @@
 package mood
 
-import "backend-mental-guardians/entities/user"
+import (
+	"backend-mental-guardians/entities"
+	"backend-mental-guardians/entities/user"
+)
 
 type Mood struct {
 	ID      uint
@@ -11,10 +14,10 @@ type Mood struct {
 
 type RepositoryInterface interface {
 	Create(mood Mood) (Mood, error)
-	GetAllByUserID(id uint) ([]Mood, error)
+	GetAllByUserID(id uint, metadata entities.Metadata) ([]Mood, error)
 }
 
 type UseCaseInterface interface {
 	Create(mood Mood) (Mood, error)
-	GetAllByUserID(id uint) ([]Mood, error)
+	GetAllByUserID(id uint, metadata entities.Metadata) ([]Mood, error)
 }

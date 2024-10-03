@@ -66,13 +66,18 @@ func (mc *MoodController) Create(c echo.Context) error {
 }
 
 func (mc *MoodController) GetAllByUserID(c echo.Context) error {
+	pageParam := c.QueryParam("page")
+	limitParam := c.QueryParam("limit")
+
+	metadata := utilities.GetMetadata(pageParam, limitParam)
+
 	token := c.Request().Header.Get("Authorization")
 	userID, err := utilities.GetUserIdFromToken(token)
 	if err != nil {
 		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
 	}
 
-	moods, err := mc.moodUseCase.GetAllByUserID(uint(userID))
+	moods, err := mc.moodUseCase.GetAllByUserID(uint(userID), *metadata)
 	if err != nil {
 		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
 	}
@@ -86,5 +91,5 @@ func (mc *MoodController) GetAllByUserID(c echo.Context) error {
 		}
 	}
 
-	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Get All Moods", moodResponses))
+	return c.JSON(http.StatusOK, base.NewMetadataSuccessResponse("Success Get All Mood", metadata, moodResponses))
 }

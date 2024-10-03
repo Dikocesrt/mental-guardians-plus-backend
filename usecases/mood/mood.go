@@ -1,6 +1,9 @@
 package mood
 
-import moodEntities "backend-mental-guardians/entities/mood"
+import (
+	"backend-mental-guardians/entities"
+	moodEntities "backend-mental-guardians/entities/mood"
+)
 
 type MoodUseCase struct {
 	moodRepository moodEntities.RepositoryInterface
@@ -20,8 +23,8 @@ func (mu *MoodUseCase) Create(mood moodEntities.Mood) (moodEntities.Mood, error)
 	return newMood, nil
 }
 
-func (mu *MoodUseCase) GetAllByUserID(id uint) ([]moodEntities.Mood, error) {
-	moods, err := mu.moodRepository.GetAllByUserID(id)
+func (mu *MoodUseCase) GetAllByUserID(id uint, metadata entities.Metadata) ([]moodEntities.Mood, error) {
+	moods, err := mu.moodRepository.GetAllByUserID(id, metadata)
 	if err != nil {
 		return []moodEntities.Mood{}, err
 	}
