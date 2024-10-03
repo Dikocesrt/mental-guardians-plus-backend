@@ -9,7 +9,7 @@ import (
 type Mood struct {
 	gorm.Model
 	Content string `gorm:"not null;type:text"`
-	IsGood  bool   `gorm:"not null"`
-	UserID  int    `gorm:"not null;index"`
+	IsGood  bool   `gorm:"not null;type:boolean"`
+	UserID  uint    `gorm:"not null;index"`
 	User    user.User `gorm:"foreignKey:UserID"`
 }
