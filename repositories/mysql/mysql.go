@@ -3,6 +3,7 @@ package mysql
 import (
 	"backend-mental-guardians/repositories/mysql/content"
 	"backend-mental-guardians/repositories/mysql/music"
+	"backend-mental-guardians/repositories/mysql/therapist"
 	"backend-mental-guardians/repositories/mysql/user"
 	"fmt"
 	"log"
@@ -41,7 +42,7 @@ func ConnectDB(config Config) *gorm.DB {
 }
 
 func InitMigrate(db *gorm.DB) {
-	if err := db.AutoMigrate(user.User{}, music.Music{}, content.Content{}); err != nil {
+	if err := db.AutoMigrate(user.User{}, music.Music{}, content.Content{}, therapist.Therapist{}); err != nil {
 		log.Println("Error migrating user table")
 	}
 }

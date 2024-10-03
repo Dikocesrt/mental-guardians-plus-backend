@@ -3,6 +3,7 @@ package routes
 import (
 	content "backend-mental-guardians/controllers/content"
 	"backend-mental-guardians/controllers/music"
+	"backend-mental-guardians/controllers/therapist"
 	"backend-mental-guardians/controllers/user"
 	myMiddlewares "backend-mental-guardians/middlewares"
 
@@ -13,13 +14,15 @@ type RouteController struct {
 	userController *user.UserController
 	musicController *music.MusicController
 	contentController *content.ContentController
+	therapistController *therapist.TherapistController
 }
 
-func NewRouteController(userController *user.UserController, musicController *music.MusicController, contentController *content.ContentController) *RouteController {
+func NewRouteController(userController *user.UserController, musicController *music.MusicController, contentController *content.ContentController, therapistController *therapist.TherapistController) *RouteController {
 	return &RouteController{
 		userController: userController,
 		musicController: musicController,
 		contentController: contentController,
+		therapistController: therapistController,
 	}
 }
 
@@ -41,4 +44,6 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 	userRoute.GET("articles/:id", routeController.contentController.GetByID)
 
 	userRoute.GET("profile", routeController.userController.GetProfileByID)
+
+	userRoute.GET("therapists", routeController.therapistController.GetAll)
 }
