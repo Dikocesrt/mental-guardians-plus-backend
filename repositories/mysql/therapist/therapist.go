@@ -1,6 +1,7 @@
 package therapist
 
 import (
+	"backend-mental-guardians/constants"
 	"backend-mental-guardians/entities"
 	therapistEntities "backend-mental-guardians/entities/therapist"
 
@@ -52,4 +53,30 @@ func (t *TherapistRepo) GetAll(metadata entities.Metadata, specialist string) ([
 	}
 
 	return therapistEnts, nil
+}
+
+
+func (t *TherapistRepo) GetByID(id uint) (therapistEntities.Therapist, error) {
+	var therapistDB Therapist
+	err := t.DB.Where("id = ?", id).First(&therapistDB).Error
+	if err != nil {
+		return therapistEntities.Therapist{}, constants.ErrTherapistNotFound
+	}
+	therapist := therapistEntities.Therapist{
+		ID:           therapistDB.ID,
+		Name:         therapistDB.Name,
+		Age:          therapistDB.Age,
+		Specialist:  therapistDB.Specialist,
+		PhotoURL:     therapistDB.PhotoURL,
+		PhoneNumber: therapistDB.PhoneNumber,
+		Gender:       therapistDB.Gender,
+		Experience:   therapistDB.Experience,
+		Fee:          therapistDB.Fee,
+		PracticeCity: therapistDB.PracticeCity,
+		PracticeLocation: therapistDB.PracticeLocation,
+		BachelorAlmamater: therapistDB.BachelorAlmamater,
+		BachelorGraduationYear: therapistDB.BachelorGraduationYear,
+		ConsultationMode: therapistDB.ConsultationMode,
+	}
+	return therapist, nil
 }

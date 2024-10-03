@@ -21,10 +21,10 @@ type Therapist struct {
 
 type RepostitoryInterface interface {
 	GetAll(metadata entities.Metadata, specialist string) ([]Therapist, error)
-	// GetByID(id uint) (Therapist, error)
+	GetByID(id uint) (Therapist, error)
 }
 
 type UseCaseInterface interface {
 	GetAll(metadata entities.Metadata, specialist string) ([]Therapist, error)
-	// GetByID(id uint) (Therapist, error)
+	GetByID(id uint) (Therapist, error)
 }

@@ -22,3 +22,11 @@ func (therapistUseCase *TherapistUseCase) GetAll(metadata entities.Metadata, spe
 	}
 	return therapist, nil
 }
+
+func (therapistUseCase *TherapistUseCase) GetByID(id uint) (therapistEntities.Therapist, error) {
+	therapist, err := therapistUseCase.therapistRepo.GetByID(id)
+	if err != nil {
+		return therapistEntities.Therapist{}, err
+	}
+	return therapist, nil
+}

@@ -40,6 +40,9 @@ func ConvertResponseCode(err error) int {
 		case constants.ErrContentNotFound:
 			return http.StatusNotFound
 
+		case constants.ErrTherapistNotFound:
+			return http.StatusNotFound
+
 		default:
 			return http.StatusInternalServerError
 	}

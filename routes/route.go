@@ -46,4 +46,5 @@ func (routeController *RouteController) Route(e *echo.Echo) {
 	userRoute.GET("profile", routeController.userController.GetProfileByID)
 
 	userRoute.GET("therapists", routeController.therapistController.GetAll)
+	userRoute.GET("therapists/:id", routeController.therapistController.GetByID)
 }

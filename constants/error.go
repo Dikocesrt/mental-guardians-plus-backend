@@ -23,3 +23,5 @@ var ErrInternalServer error = errors.New("internal server error")
 var ErrMusicNotFound error = errors.New("music not found")
 
 var ErrContentNotFound error = errors.New("content not found")
+
+var ErrTherapistNotFound error = errors.New("therapist not found")

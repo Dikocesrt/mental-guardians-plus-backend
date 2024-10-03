@@ -6,6 +6,7 @@ import (
 	"backend-mental-guardians/utilities"
 	"backend-mental-guardians/utilities/base"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -60,4 +61,32 @@ func (tc *TherapistController) GetAll(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, base.NewMetadataSuccessResponse("Success Get All Therapist", metadata, therapistResps))
+}
+
+func (uc *TherapistController) GetByID(c echo.Context) error {
+	strId := c.Param("id")
+	id, _ := strconv.Atoi(strId)
+
+	therapistData, err := uc.therapistUseCase.GetByID(uint(id))
+	if err != nil {
+		return c.JSON(base.ConvertResponseCode(err), base.NewErrorResponse(err.Error()))
+	}
+	therapistResp := response.TherapistResponse{
+		ID:  					therapistData.ID,
+		Name: 					therapistData.Name,
+		Age:                    therapistData.Age,
+		Specialist:             therapistData.Specialist,
+		PhotoURL:               therapistData.PhotoURL,
+		PhoneNumber:            therapistData.PhoneNumber,
+		Gender:                 therapistData.Gender,
+		Experience:             therapistData.Experience,
+		Fee:                    therapistData.Fee,
+		PracticeCity:           therapistData.PracticeCity,
+		PracticeLocation:       therapistData.PracticeLocation,
+		BachelorAlmamater:      therapistData.BachelorAlmamater,
+		BachelorGraduationYear: therapistData.BachelorGraduationYear,
+		ConsultationMode:       therapistData.ConsultationMode,
+	}
+
+	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Get Therapist", therapistResp))
 }
