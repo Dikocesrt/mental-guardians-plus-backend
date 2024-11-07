@@ -11,7 +11,7 @@ func CreateToken(userId uint) (string, error) {
 	//membuat payload
 	claims := jwt.MapClaims{}
 	claims["userId"] = userId
-	claims["exp"] = time.Now().Add(time.Hour * 24 * 7).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * 24 * 365).Unix()
 
 	//membuat header
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

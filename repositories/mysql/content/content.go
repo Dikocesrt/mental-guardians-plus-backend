@@ -41,6 +41,7 @@ func (s *ContentRepo) GetAll(metadata entities.Metadata, category string, conten
 			Category:     story.Category,
 			Type:         story.Type,
 			ThumbnailURL: story.ThumbnailURL,
+			CreatedAt:    story.CreatedAt.Format("2006-01-02 15:04:05"),
 		}
 	}
 	return storyEnts, nil
@@ -62,5 +63,6 @@ func (s *ContentRepo) GetByID(id uint) (contentEntities.Content, error) {
 		Category:     storyDB.Category,
 		ThumbnailURL: storyDB.ThumbnailURL,
 		Type:         storyDB.Type,
+		CreatedAt:    storyDB.CreatedAt.Format("2006-01-02 15:04:05"),
 	}, nil
 }

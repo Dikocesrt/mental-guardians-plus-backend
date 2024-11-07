@@ -61,7 +61,7 @@ func (u *UserRepo) Create(user userEntities.User) (userEntities.User, error) {
 	}
 
 	newUser := userEntities.User{
-		ID:        user.ID,
+		ID:        userDB.ID,
 		Email:     user.Email,
 		Password:  user.Password,
 		FirstName: user.FirstName,

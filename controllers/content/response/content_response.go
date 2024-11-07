@@ -8,4 +8,5 @@ type ContentResponse struct {
 	Category     string `json:"category"`
 	Type         string `json:"type"`
 	ThumbnailURL string `json:"thumbnailURL"`
+	CreatedAt    string `json:"createdAt"`
 }

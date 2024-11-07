@@ -10,6 +10,7 @@ type Content struct {
 	Category     string
 	Type         string
 	ThumbnailURL string
+	CreatedAt    string
 }
 
 type RepositoryInterface interface {

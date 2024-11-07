@@ -50,6 +50,7 @@ func (s *ContentController) GetAllStories(c echo.Context) error {
 			ThumbnailURL: story.ThumbnailURL,
 			Category:  story.Category,
 			Type:      story.Type,
+			CreatedAt: story.CreatedAt,
 		}
 	}
 
@@ -85,6 +86,7 @@ func (s *ContentController) GetAllArticles(c echo.Context) error {
 			ThumbnailURL: article.ThumbnailURL,
 			Category:  article.Category,
 			Type:      article.Type,
+			CreatedAt: article.CreatedAt,
 		}
 	}
 
@@ -114,6 +116,7 @@ func (s *ContentController) GetByID(c echo.Context) error {
 		ThumbnailURL: story.ThumbnailURL,
 		Category:  story.Category,
 		Type:      story.Type,
+		CreatedAt: story.CreatedAt,
 	}
 
 	return c.JSON(http.StatusOK, base.NewSuccessResponse("Success Get Story", storyResp))

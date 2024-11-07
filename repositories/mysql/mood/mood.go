@@ -40,7 +40,7 @@ func (m *MoodRepo) Create(mood moodEntities.Mood) (moodEntities.Mood, error) {
 
 func (m *MoodRepo) GetAllByUserID(userID uint, metadata entities.Metadata) ([]moodEntities.Mood, error) {
 	var moods []Mood
-	if err := m.DB.Where("user_id = ?", userID).Offset((metadata.Page - 1) * metadata.Limit).Limit(metadata.Limit).Find(&moods).Error; err != nil {
+	if err := m.DB.Where("user_id = ?", userID).Order("created_at DESC").Offset((metadata.Page - 1) * metadata.Limit).Limit(metadata.Limit).Find(&moods).Error; err != nil {
 		return []moodEntities.Mood{}, err
 	}
 	moodEnts := make([]moodEntities.Mood, len(moods))
