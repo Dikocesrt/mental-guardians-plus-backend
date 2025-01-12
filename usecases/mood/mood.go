@@ -1,6 +1,7 @@
 package mood
 
 import (
+	"backend-mental-guardians/constants"
 	"backend-mental-guardians/entities"
 	moodEntities "backend-mental-guardians/entities/mood"
 )
@@ -16,6 +17,9 @@ func NewMoodUseCase(moodRepository moodEntities.RepositoryInterface) *MoodUseCas
 }
 
 func (mu *MoodUseCase) Create(mood moodEntities.Mood) (moodEntities.Mood, error) {
+	if mood.Content == "" {
+		return moodEntities.Mood{}, constants.ErrEmptyMood
+	}
 	newMood, err := mu.moodRepository.Create(mood)
 	if err != nil {
 		return moodEntities.Mood{}, err

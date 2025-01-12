@@ -2,26 +2,28 @@ package constants
 
 import "errors"
 
-var ErrEmptyFieldRegister error = errors.New("email, password, first name and last name cannot be empty")
+var ErrEmptyFieldRegister error = errors.New("nama depan, nama belakang, email atau password tidak boleh kosong")
 
-var ErrHashPassword error = errors.New("failed to hash password")
+var ErrEmptyMood error = errors.New("deskripsi mood tidak boleh kosong")
 
-var ErrEmailAlreadyRegistered error = errors.New("email already registered")
+var ErrHashPassword error = errors.New("hash password error")
 
-var ErrCreateUser error = errors.New("failed to create user")
+var ErrEmailAlreadyRegistered error = errors.New("email sudah terpakai")
 
-var ErrCreateToken error = errors.New("failed to create token")
+var ErrCreateUser error = errors.New("register gagal")
 
-var ErrEmptyFieldLogin error = errors.New("email and password cannot be empty")
+var ErrCreateToken error = errors.New("gagal membuat token")
 
-var ErrUserNotFound error = errors.New("email or password is incorrect")
+var ErrEmptyFieldLogin error = errors.New("email atau password tidak boleh kosong")
 
-var ErrInvalidToken error = errors.New("invalid token")
+var ErrUserNotFound error = errors.New("email atau password salah")
+
+var ErrInvalidToken error = errors.New("token tidak valid")
 
 var ErrInternalServer error = errors.New("internal server error")
 
-var ErrMusicNotFound error = errors.New("music not found")
+var ErrMusicNotFound error = errors.New("music tidak ditemukan")
 
-var ErrContentNotFound error = errors.New("content not found")
+var ErrContentNotFound error = errors.New("content tidak ditemukan")
 
-var ErrTherapistNotFound error = errors.New("therapist not found")
+var ErrTherapistNotFound error = errors.New("psikolog tidak ditemukan")
